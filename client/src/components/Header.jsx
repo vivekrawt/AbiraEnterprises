@@ -1,9 +1,11 @@
 import { useState } from 'react';
-export default function Header() {
-  const [open,setOpen] = useState(false);
-  return <><a className="skip" href="#main">Skip to content</a><div className="announcement">From the first impression to the final detail. <span>Thoughtfully packaged.</span> <span aria-hidden="true">↗</span></div><header className="header">
-    <a className="brand" href="#" aria-label="Abira Enterprises home"><svg viewBox="0 0 36 40" fill="none" aria-hidden="true"><path d="M18 2 34 11v18L18 38 2 29V11L18 2Z M2 11l16 10 16-10M18 21v17M10 6l16 10v10" stroke="currentColor" strokeWidth="1.7" /></svg><span>abira<span className="brand-sub">ENTERPRISES</span></span></a>
-    <nav id="nav" className={open ? 'open' : ''} aria-label="Main navigation" onClick={() => setOpen(false)}><a href="#collections">Our collections <span>⌄</span></a><a href="#approach">Why Abira</a><a href="#process">How it works</a><a href="#faq">FAQs</a></nav>
-    <a className="button small header-cta" href="#enquiry">Let’s talk packaging <span>↗</span></a><button className="menu-toggle" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="nav" aria-label={open ? 'Close navigation' : 'Open navigation'}>{open ? '×' : '☰'}</button>
+export default function Header({ search, onSearch }) {
+  const [open,setOpen] = useState(false), [showSearch,setShowSearch] = useState(false);
+  const toggleSearch = () => { setShowSearch(!showSearch); if(showSearch) onSearch(''); };
+  return <><a className="skip" href="#main">Skip to content</a><header className="reference-header">
+    <a className="reference-brand" href="#" aria-label="Abira Enterprises home"><span><b>Abira</b> Enterprises</span><small>PACKAGING&nbsp;&nbsp; | &nbsp;&nbsp;PRINTING&nbsp;&nbsp; | &nbsp;&nbsp;CORPORATE GIFTING</small></a>
+    <nav className={open?'open':''} aria-label="Main navigation" onClick={()=>setOpen(false)}><a className="current" href="#">Home</a><a href="#approach">About Us</a><a href="#collections">Products <span aria-hidden="true">⌄</span></a><a href="#why-choose-us">Why Choose Us</a><a href="#enquiry">Contact Us</a></nav>
+    <div className="header-tools"><button aria-label={showSearch?'Close product search':'Search products'} aria-expanded={showSearch} onClick={toggleSearch}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><circle cx="10.7" cy="10.7" r="7.3"/><path d="m16 16 5.5 5.5"/></svg></button><a href="#enquiry" aria-label="Create a packaging brief"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><path d="M2 4h2l2 12h13l2-9H5M8 20h.01M18 20h.01" strokeLinecap="round" strokeLinejoin="round"/></svg></a><button className="menu-toggle" onClick={()=>setOpen(!open)} aria-label={open?'Close menu':'Open menu'} aria-expanded={open}>☰</button></div>
+    {showSearch && <div className="header-search"><label>Search products<input autoFocus value={search} onChange={e=>onSearch(e.target.value)} placeholder="Try gifting boxes, confetti, mailers…" /></label><a href="#collections" onClick={()=>setShowSearch(false)}>See results ↗</a></div>}
   </header></>;
 }

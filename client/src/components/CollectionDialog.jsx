@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import catalogue from '../data/catalogue.json';
 const types = ['All styles','Standard Boxes','Printed Boxes','Coloured Boxes','Industrial Packaging'];
-export default function CollectionDialog({ collection, onClose, onEnquire }) {
+export default function CollectionDialog({ collection, initialType='All styles', onClose, onEnquire }) {
   const dialog = useRef(null);
-  const [type,setType] = useState('All styles');
+  const [type,setType] = useState(initialType);
   const products = catalogue.filter(p => p.category === collection.folder);
   useEffect(() => {
     const previous = document.activeElement;

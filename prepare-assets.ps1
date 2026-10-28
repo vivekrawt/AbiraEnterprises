@@ -18,5 +18,5 @@ for ($i=0; $i -lt $files.Count; $i++) {
   $records += [PSCustomObject]@{ id=$i; src="assets/product-$i.jpg"; category=($relative -split '\\')[0]; source=$relative }
   $graphics.Dispose(); $bitmap.Dispose(); $source.Dispose()
 }
-$records | ConvertTo-Json | Set-Content (Join-Path $PSScriptRoot 'server\data\catalogue.json') -Encoding utf8
+$records | ConvertTo-Json | Set-Content (Join-Path $PSScriptRoot 'client\src\data\catalogue.json') -Encoding utf8
 Write-Output "Prepared $($records.Count) catalogue images."

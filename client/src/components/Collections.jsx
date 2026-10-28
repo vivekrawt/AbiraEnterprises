@@ -1,10 +1,13 @@
-import { useState } from 'react';
-import { collections } from '../../../shared/collections.js';
-const filters = [['all','All collections'],['pack','Pack & protect'],['gift','Gift & celebrate'],['brand','Brand & connect']];
-export default function Collections({ onOpen }) {
-  const [filter,setFilter] = useState('all');
-  return <section className="collections section" id="collections"><div className="section-top"><div><p className="eyebrow">THE ABIRA COLLECTIONS</p><h2>Everything you need.<br /><em>All wrapped up.</em></h2></div><p>From getting it there safely to making it feel special.<br />Find the right fit for what you have in mind.</p></div>
-    <div className="filters" role="group" aria-label="Filter collections">{filters.map(([id,label]) => <button key={id} className={filter === id ? 'active' : ''} aria-pressed={filter === id} onClick={() => setFilter(id)}>{label}{id === 'all' && <span>06</span>}</button>)}</div>
-    <div className="collection-grid" id="collection-grid">{collections.filter(c => filter === 'all' || c.group === filter).map(c => <button key={c.id} className="collection-card" aria-label={`Explore ${c.title}`} onClick={() => onOpen(c.id)}><div className="card-image"><img src={`/assets/product-${c.image}.jpg`} alt={`${c.title} style inspiration`} loading="lazy" /><span className="card-index">0{collections.indexOf(c)+1} / COLLECTION</span></div><div className="card-info"><h3>{c.title}</h3><span className="card-arrow" aria-hidden="true">↗</span></div><p>{c.subtitle}</p></button>)}</div><p className="collection-note">A glimpse of the possibilities. Explore each collection for more styles and inspiration.</p>
-  </section>;
+const products = [
+  {title:'Confetti',image:1,id:'confetti'}, {title:'Corporate Stationery',image:16,id:'stationery'},
+  {title:'Corrugated Boxes',image:49,id:'corrugated'}, {title:'Coloured Boxes',image:29,id:'corrugated',type:'Coloured Boxes'},
+  {title:'Industrial Packaging',image:34,id:'corrugated',type:'Industrial Packaging'}, {title:'Mailer Box',image:67,id:'corrugated',type:'Standard Boxes'},
+  {title:'Printed Boxes',image:69,id:'corrugated',type:'Printed Boxes'}, {title:'Custom Cards & Envelopes',image:81,id:'cards'},
+  {title:'Gifting Boxes',image:89,id:'gift'}, {title:'Safety Wraps',image:103,id:'wraps'}
+];
+export default function Collections({ onOpen, search='' }) {
+  const shown=products.filter(p=>p.title.toLowerCase().includes(search.toLowerCase().trim()));
+  return <section className="reference-products" id="collections"><p className="eyebrow">OUR PRODUCTS</p><h2>Explore Our Range</h2><div className="reference-grid" aria-live="polite">
+    {shown.map((p,i)=><button key={p.title} className={`reference-product ${i<4?'first-row':''}`} onClick={()=>onOpen({id:p.id,type:p.type})} aria-label={`Explore ${p.title}`}><div className="reference-product-image"><img src={`/assets/product-${p.image}.jpg`} alt={`${p.title} sample`} loading="lazy" /></div><div className="reference-product-label"><span>{p.title}</span><span aria-hidden="true">→</span></div></button>)}
+  </div>{shown.length===0 && <p className="no-products">No matching products. Try “boxes”, “cards” or “wraps”.</p>}</section>;
 }
