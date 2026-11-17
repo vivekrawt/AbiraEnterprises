@@ -1,11 +1,209 @@
-// Presentation components preserve the original Abira design and copy.
-export function Hero(){return (<section className="hero">
-      <div className="hero-copy"><p className="eyebrow"><span className="tiny-star">✳</span> GOOD THINGS BEGIN WITH GREAT PACKAGING</p><h1>A little outside.<br />A lot <em>inside.</em></h1><p className="hero-description">More than a box. A first impression, a thoughtful gesture, a little piece of your brand. Let’s make it count.</p><div className="hero-actions"><a className="button coral" href="#collections">Explore our collections <span>↗</span></a><a className="text-link" href="#enquiry">Have something in mind? <span>→</span></a></div><div className="hero-bottom"><span className="outline-box" aria-hidden="true">◇</span><span>For brands. For businesses.<br /><strong>For every little possibility.</strong></span></div></div>
-      <div className="hero-visual"><img src="assets/product-26.jpg" alt="A collection of pink, forest green, navy and kraft printed packaging boxes" fetchPriority="high" /><div className="round-stamp"><span>MADE TO</span><strong>stand<br />out.</strong><span>PACKED WITH POSSIBILITY</span></div><div className="image-caption"><span className="caption-dot"></span> Your brand, beautifully boxed. <span>01 / 06</span></div></div>
-    </section>);}
-export function Approach(){return (<section className="feature" id="approach"><div className="feature-photo"><img src="assets/product-101.jpg" alt="Textured gift box finished with a satin ribbon" loading="lazy" /><span className="photo-tag">It’s all in the details.</span></div><div className="feature-copy"><p className="eyebrow">SMALL DETAILS. BIG FEELINGS.</p><h2>The packaging is<br />part of <em>the story.</em></h2><p>The anticipation of opening a gift. The care in a handwritten note. The confidence of a well-protected delivery. What’s on the outside says something about what’s inside.</p><p>At Abira Enterprises, we bring packaging, gifting and everyday brand essentials together—so every detail feels like you.</p><a className="text-link light" href="#enquiry">Let’s bring your idea to life <span>↗</span></a><div className="feature-signoff"><span aria-hidden="true">✳</span> Thoughtful from the outside in.</div></div></section>);}
-export function Process(){return (<section className="process section" id="process"><div className="section-top"><div><p className="eyebrow">FROM AN IDEA TO SOMETHING TANGIBLE</p><h2>Let’s make <em>it yours.</em></h2></div><p>A clear starting point for your next packaging project.</p></div><div className="steps"><article><span className="step-number">01</span><h3>Find your fit</h3><p>Explore the collections. Choose a box, a finishing touch, or a complete set of brand essentials.</p></article><article><span className="step-number">02</span><h3>Share the details</h3><p>Tell us the size, quantity, colours and occasion. Add any artwork or finish ideas to your brief.</p></article><article><span className="step-number">03</span><h3>Work out the possibilities</h3><p>Discuss specifications, available options, pricing and timelines before confirming your order.</p></article></div></section>);}
-export function FAQ(){return (<section className="faq section" id="faq"><div><p className="eyebrow">GOOD QUESTIONS, UNPACKED.</p><h2>A few things<br />you might <em>wonder.</em></h2><a className="text-link" href="#enquiry">Start with your brief <span>↗</span></a></div><div className="faq-items"><details><summary>What kinds of packaging can I explore?<span>+</span></summary><p>Our range includes corrugated boxes, gifting boxes, custom cards and envelopes, confetti, safety wraps and corporate stationery. Corrugated options include standard mailers, printed boxes, coloured boxes and industrial packaging.</p></details><details><summary>Can I ask for my own size or branding?<span>+</span></summary><p>Yes—include your preferred dimensions, colours, logo or print requirements in your enquiry. Specific materials, finishes and customisation options can be discussed for your project.</p></details><details><summary>Is there a minimum order quantity?<span>+</span></summary><p>Quantities and pricing depend on the product and specification. Add your estimated quantity to the brief so the available options can be discussed.</p></details><details><summary>What should I include in my enquiry?<span>+</span></summary><p>The product type, quantity, dimensions, intended use and required date are a helpful start. If you have a reference, note the image reference from the collection gallery.</p></details><details><summary>How long will my order take?<span>+</span></summary><p>Timelines depend on the product, customisation and quantity. Share your preferred delivery date so feasibility can be confirmed before you place an order.</p></details></div></section>);}
-export function Inspiration({onOpen}){return (<section className="inspiration section"><div className="section-top"><div><p className="eyebrow">A LITTLE INSPIRATION</p><h2>Make every moment<br /><em>an opening moment.</em></h2></div><a className="text-link" href="#collections">Find your collection <span>↗</span></a></div><div className="inspiration-grid"><button className="inspiration-card" onClick={() => onOpen("gift")}><img src="assets/product-98.jpg" alt="Colourful festive gift box with a selection of treats" loading="lazy" /><span>For the moments that matter <b>Gifting & celebrations ↗</b></span></button><button className="inspiration-card" onClick={() => onOpen("stationery")}><img src="assets/product-23.jpg" alt="Coordinated green notebook and pen set" loading="lazy" /><span>A little more you <b>Corporate essentials ↗</b></span></button><button className="inspiration-card" onClick={() => onOpen("corrugated")}><img src="assets/product-76.jpg" alt="Printed kraft mailer box with botanical design" loading="lazy" /><span>The first hello from your brand <b>Printed packaging ↗</b></span></button></div></section>);}
-export function Footer(){return (<footer><div className="footer-top"><a className="brand footer-brand" href="#"><svg viewBox="0 0 36 40" fill="none" aria-hidden="true"><path d="M18 2 34 11v18L18 38 2 29V11L18 2Z M2 11l16 10 16-10M18 21v17M10 6l16 10v10" stroke="currentColor" strokeWidth="1.7"/></svg><span>abira<span className="brand-sub">ENTERPRISES</span></span></a><p>Small details.<br />Endless possibilities.</p><div><a href="#collections">Explore collections ↗</a><a href="#enquiry">Start your packaging brief ↗</a></div><a href="#" className="back-top">Back to top ↑</a></div><div className="footer-bottom"><span>© <span>{new Date().getFullYear()}</span> Abira Enterprises</span><span>Packaging · Gifting · Brand essentials</span><span>Thoughtful from the outside in.</span></div></footer>);}
+// Presentation components reflecting Abira Enterprises' brand messaging and services.
 
+export function Approach() {
+  return (
+    <section className="feature" id="approach" aria-label="About Abira Enterprises">
+      <div className="feature-photo">
+        <img
+          src="/assets/product-101.jpg"
+          alt="Textured corporate gift packaging box finished with ribbon"
+          loading="lazy"
+        />
+        <span className="photo-tag">Every detail reflects your brand.</span>
+      </div>
+      <div className="feature-copy">
+        <p className="eyebrow">ABOUT ABIRA ENTERPRISES</p>
+        <h2>
+          THOUGHTFUL DETAILS.<br />
+          <em>LASTING IMPRESSIONS.</em>
+        </h2>
+        <h3 className="feature-subheading">Every detail reflects your brand.</h3>
+        <p>
+          From the first impression of a package to the finishing touch on a corporate gift, every detail matters. The right packaging protects, the right presentation impresses, and the right stationery communicates professionalism.
+        </p>
+        <p>
+          At Abira Enterprises, we bring customized packaging, corporate gifting, printing, and everyday business essentials together to help businesses build and maintain a consistent, professional brand identity.
+        </p>
+        <a className="text-link light" href="#enquiry">
+          Discuss your brand requirements <span>↗</span>
+        </a>
+        <div className="feature-signoff">
+          <span aria-hidden="true">✳</span> Thoughtful details from the outside in.
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function Process() {
+  return (
+    <section className="process section" id="process" aria-label="Our working process">
+      <div className="section-top">
+        <div>
+          <p className="eyebrow">FROM BRIEF TO DELIVERY</p>
+          <h2>How We <em>Work Together.</em></h2>
+        </div>
+        <p>A dependable, streamlined process for all your corporate packaging and gifting needs.</p>
+      </div>
+      <div className="steps">
+        <article>
+          <span className="step-number">01</span>
+          <h3>Explore the catalogue</h3>
+          <p>Browse our solutions across packaging, corporate gifting, safety wraps, confetti, tapes, and labels.</p>
+        </article>
+        <article>
+          <span className="step-number">02</span>
+          <h3>Share your specifications</h3>
+          <p>Tell us your preferred dimensions, order quantities, branding requirements, and target delivery dates.</p>
+        </article>
+        <article>
+          <span className="step-number">03</span>
+          <h3>Sample, finalize &amp; produce</h3>
+          <p>Review material options and custom specifications with our team before your order goes into production.</p>
+        </article>
+      </div>
+    </section>
+  );
+}
+
+export function FAQ() {
+  return (
+    <section className="faq section" id="faq" aria-label="Frequently Asked Questions">
+      <div>
+        <p className="eyebrow">GOOD QUESTIONS, ANSWERED</p>
+        <h2>A few things<br />you might <em>wonder.</em></h2>
+        <a className="text-link" href="#enquiry">Submit a project enquiry <span>↗</span></a>
+      </div>
+      <div className="faq-items">
+        <details>
+          <summary>What product categories does Abira Enterprises offer?<span>+</span></summary>
+          <p>
+            We provide an end-to-end catalogue across six main pillars: Comprehensive Packaging Solutions (corrugated boxes, printed &amp; branded boxes, coloured &amp; luxury rigid boxes, mailer boxes, and industrial packaging), Corporate Gifting (office stationery, corporate branding, commercial printing &amp; paper products, and desk essentials), Safety Wraps (air bubble rolls, honeycomb paper, kraft wrap), Confetti, Packaging Tapes (BOPP, printed logo, kraft, and masking tapes), and Labels &amp; Stickers (thermal, barcode, shipping, and branding decals).
+          </p>
+        </details>
+        <details>
+          <summary>Can I request custom sizes, printing, and branded finishes?<span>+</span></summary>
+          <p>
+            Yes. Customization is core to what we do. You can provide your required box dimensions, flute ply (3-ply, 5-ply, 7-ply), logo artwork, Pantone colours, and surface finishes (matte, gloss, UV, foil stamping) in your enquiry.
+          </p>
+        </details>
+        <details>
+          <summary>What are your minimum order quantities (MOQ)?<span>+</span></summary>
+          <p>
+            Minimum order quantities vary based on the product category and level of customization (e.g. plain stock mailers vs. custom flexo-printed boxes or branded stationery kits). Share your anticipated volume in our enquiry form so we can confirm feasibility and quote accordingly.
+          </p>
+        </details>
+        <details>
+          <summary>How can I request samples or physical mockups?<span>+</span></summary>
+          <p>
+            You can request sample designs and physical material swatches by submitting an enquiry with your project details and the specific product or category name.
+          </p>
+        </details>
+        <details>
+          <summary>What is the typical turnaround time for orders?<span>+</span></summary>
+          <p>
+            Lead times depend on the exact product specifications, printing requirements, and volume. Standard items ship quickly, while bespoke branded packaging and gift sets are scheduled according to your target delivery deadline.
+          </p>
+        </details>
+      </div>
+    </section>
+  );
+}
+
+export function Inspiration({ onOpen }) {
+  return (
+    <section className="inspiration section" aria-label="Curated inspiration">
+      <div className="section-top">
+        <div>
+          <p className="eyebrow">CURATED SOLUTIONS</p>
+          <h2>Designed for Every<br /><em>Brand Touchpoint.</em></h2>
+        </div>
+        <a className="text-link" href="#collections">Browse complete catalogue <span>↗</span></a>
+      </div>
+      <div className="inspiration-grid">
+        <button
+          className="inspiration-card"
+          onClick={() => onOpen('corporate-stationery')}
+          aria-label="Explore Corporate Stationery & Gifting"
+        >
+          <img
+            src="/assets/product-16.jpg"
+            alt="Corporate gifting sets and branded stationery"
+            loading="lazy"
+          />
+          <span>
+            Welcome kits &amp; executive gifts
+            <b>Corporate Stationery &amp; Gifting ↗</b>
+          </span>
+        </button>
+        <button
+          className="inspiration-card"
+          onClick={() => onOpen('packaging-solutions')}
+          aria-label="Explore Comprehensive Packaging Solutions"
+        >
+          <img
+            src="/assets/product-67.jpg"
+            alt="Custom printed corrugated mailer box"
+            loading="lazy"
+          />
+          <span>
+            Distinctive unboxing &amp; transit cartons
+            <b>Packaging Solutions ↗</b>
+          </span>
+        </button>
+        <button
+          className="inspiration-card"
+          onClick={() => onOpen('safety-wraps')}
+          aria-label="Explore Safety Wraps and Protective Packaging"
+        >
+          <img
+            src="/assets/product-106.jpg"
+            alt="Eco-friendly honeycomb protective paper wrap"
+            loading="lazy"
+          />
+          <span>
+            Reliable protective cushioning
+            <b>Safety Wraps &amp; Tapes ↗</b>
+          </span>
+        </button>
+      </div>
+    </section>
+  );
+}
+
+export function Footer() {
+  return (
+    <footer>
+      <div className="footer-top">
+        <a className="brand footer-brand" href="#hero" aria-label="Abira Enterprises Home">
+          <svg viewBox="0 0 36 40" fill="none" aria-hidden="true">
+            <path
+              d="M18 2 34 11v18L18 38 2 29V11L18 2Z M2 11l16 10 16-10M18 21v17M10 6l16 10v10"
+              stroke="currentColor"
+              strokeWidth="1.7"
+            />
+          </svg>
+          <span>
+            abira<span className="brand-sub">ENTERPRISES</span>
+          </span>
+        </a>
+        <p>
+          Thoughtful details.<br />
+          Lasting impressions.
+        </p>
+        <div>
+          <a href="#collections">Explore Catalogue ↗</a>
+          <a href="#approach">About Abira ↗</a>
+          <a href="#process">How We Work ↗</a>
+          <a href="#enquiry">Request a Quote ↗</a>
+        </div>
+        <a href="#hero" className="back-top">Back to top ↑</a>
+      </div>
+      <div className="footer-bottom">
+        <span>© {new Date().getFullYear()} Abira Enterprises. All rights reserved.</span>
+        <span>Packaging · Printing · Corporate Gifting · Business Essentials</span>
+        <span>Quality you can trust. Customization that inspires.</span>
+      </div>
+    </footer>
+  );
+}
