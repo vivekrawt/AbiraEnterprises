@@ -4,6 +4,47 @@ import PlaceholderThumb from './PlaceholderThumb.jsx';
 
 export const productNames = allProductItems.map(item => item.name);
 
+function CategoryProductPreview({ category }) {
+  const allProducts = category.subcategories.flatMap(subcategory =>
+    subcategory.products.map(product => ({ subcategory, product }))
+  );
+  const firstProductPerSubcategory = category.subcategories
+    .filter(subcategory => subcategory.products.length > 0)
+    .map(subcategory => ({
+      subcategory,
+      product: subcategory.products[0]
+    }));
+  const previewProducts = (
+    firstProductPerSubcategory.length >= 4 ? firstProductPerSubcategory : allProducts
+  ).slice(0, 4);
+
+  return (
+    <div className="category-product-preview" role="group" aria-label={`${category.title} product previews`}>
+      {previewProducts.map(({ subcategory, product }) => {
+        const imageId = product.image ?? subcategory.defaultImage ?? category.image;
+        const imagePath =
+          getProductImagePath(category.id, product.name) ??
+          (imageId == null ? null : `/assets/product-${imageId}.jpg`);
+
+        return (
+          <div className="category-product-preview-item" key={product.name}>
+            {imagePath ? (
+              <img src={imagePath} alt={`${product.name} preview`} loading="lazy" />
+            ) : (
+              <PlaceholderThumb
+                type={category.placeholderType || subcategory.placeholderType || 'tape'}
+                subType={product.tapeType || product.labelType}
+                label={product.name}
+              />
+            )}
+            <span className="category-product-preview-label">{product.name}</span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function Collections({ onOpen, onEnquire, search = '' }) {
   // viewMode: 'overview' (6 category brochure cards) or 'category' (in-depth category view)
   const [selectedCategoryId, setSelectedCategoryId] = useState('packaging-solutions');
@@ -156,19 +197,7 @@ export default function Collections({ onOpen, onEnquire, search = '' }) {
               return (
                 <div key={cat.id} className="category-brochure-card">
                   <div className="cat-card-media">
-                    {cat.image ? (
-                      <img
-                        src={`/assets/product-${cat.image}.jpg`}
-                        alt={`${cat.title} overview`}
-                        loading="lazy"
-                      />
-                    ) : (
-                      <PlaceholderThumb
-                        type={cat.placeholderType || 'tape'}
-                        subType=""
-                        label={cat.title}
-                      />
-                    )}
+                    <CategoryProductPreview category={cat} />
                     <span className="cat-index-badge">0{idx + 1}</span>
                     <span className="cat-count-badge">{totalItems} Products</span>
                   </div>
@@ -265,18 +294,7 @@ export default function Collections({ onOpen, onEnquire, search = '' }) {
             </div>
 
             <div className="category-hero-visual">
-              {selectedCategory.image ? (
-                <img
-                  src={`/assets/product-${selectedCategory.bannerImage || selectedCategory.image}.jpg`}
-                  alt={`${selectedCategory.title} representative showcase`}
-                />
-              ) : (
-                <PlaceholderThumb
-                  type={selectedCategory.placeholderType || 'tape'}
-                  subType=""
-                  label={selectedCategory.title}
-                />
-              )}
+              <CategoryProductPreview category={selectedCategory} />
             </div>
           </div>
 

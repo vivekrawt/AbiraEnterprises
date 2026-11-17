@@ -585,6 +585,55 @@ svg {
   transition: transform 0.4s;
 }
 
+.cat-card-media > .category-product-preview {
+  position: absolute;
+  inset: 0;
+}
+
+.category-product-preview {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  padding: 6px;
+  background: #ffffff;
+}
+
+.category-product-preview-item {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #eef2f6;
+}
+
+.category-product-preview-item img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s;
+}
+
+.category-product-preview-label {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 18px 8px 6px;
+  overflow: hidden;
+  background: linear-gradient(transparent, rgba(6, 19, 37, 0.82));
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .category-brochure-card:hover .cat-card-media img {
   transform: scale(1.05);
 }
@@ -826,11 +875,17 @@ svg {
 }
 
 .category-hero-visual {
+  position: relative;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   aspect-ratio: 1.35;
   background: #ffffff;
+}
+
+.category-hero-visual > .category-product-preview {
+  position: absolute;
+  inset: 0;
 }
 
 .category-hero-visual img {
