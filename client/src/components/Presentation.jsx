@@ -203,6 +203,17 @@ export function Footer() {
         <span>© {new Date().getFullYear()} Abira Enterprises. All rights reserved.</span>
         <span>Packaging · Printing · Corporate Gifting · Business Essentials</span>
         <span>Quality you can trust. Customization that inspires.</span>
+        <span className="footer-image-credit">
+          Heavy-duty stapler photo by{' '}
+          <a href="https://commons.wikimedia.org/wiki/File:Heavy-duty-stapler.jpg" target="_blank" rel="noreferrer">
+            Phr~commonswiki
+          </a>
+          , licensed under{' '}
+          <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noreferrer">
+            CC BY-SA 3.0
+          </a>
+          .
+        </span>
       </div>
     </footer>
   );

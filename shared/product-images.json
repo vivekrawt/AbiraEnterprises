@@ -1,0 +1,317 @@
+{
+  "corporate-stationery": {
+    "Letterheads": {
+      "file": "corporate-stationery/letterheads.jpg",
+      "source": "Pexels",
+      "photoId": "5420902"
+    },
+    "Envelopes": {
+      "file": "corporate-stationery/envelopes.jpg",
+      "source": "Pexels",
+      "photoId": "190295"
+    },
+    "Notepads": {
+      "file": "corporate-stationery/notepads.jpg",
+      "source": "Pexels",
+      "photoId": "7657381"
+    },
+    "Writing Pads": {
+      "file": "corporate-stationery/writing-pads.jpg",
+      "source": "Pexels",
+      "photoId": "6963114"
+    },
+    "Sticky Notes": {
+      "file": "corporate-stationery/sticky-notes.jpg",
+      "source": "Pexels",
+      "photoId": "8386687"
+    },
+    "Diaries & Planners": {
+      "file": "corporate-stationery/diaries-planners.jpg",
+      "source": "Pexels",
+      "photoId": "7054719"
+    },
+    "Office Files & Folders": {
+      "file": "corporate-stationery/office-files-folders.jpg",
+      "source": "Pexels",
+      "photoId": "8297536"
+    },
+    "Document Folders": {
+      "file": "corporate-stationery/document-folders.jpg",
+      "source": "Pexels",
+      "photoId": "16978372"
+    },
+    "Registers": {
+      "file": "corporate-stationery/registers.jpg",
+      "source": "Pexels",
+      "photoId": "17616803"
+    },
+    "Notebooks": {
+      "file": "corporate-stationery/notebooks.jpg",
+      "source": "Pexels",
+      "photoId": "22431331"
+    },
+    "Staplers": {
+      "file": "corporate-stationery/staplers.jpg",
+      "source": "Pexels",
+      "photoId": "40180245"
+    },
+    "Heavy-Duty Staplers": {
+      "file": "corporate-stationery/heavy-duty-staplers.jpg",
+      "source": "Wikimedia Commons",
+      "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/11/Heavy-duty-stapler.jpg/960px-Heavy-duty-stapler.jpg",
+      "credit": "Phr~commonswiki",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Heavy-duty-stapler.jpg"
+    },
+    "Staple Pins": {
+      "file": "corporate-stationery/staple-pins.jpg",
+      "source": "Pexels",
+      "photoId": "227383"
+    },
+    "Paper Punching Machines": {
+      "file": "corporate-stationery/paper-punching-machines.jpg",
+      "source": "Pexels",
+      "photoId": "5882691"
+    },
+    "Paper Cutters": {
+      "file": "corporate-stationery/paper-cutters.jpg",
+      "source": "Pexels",
+      "photoId": "6621007"
+    },
+    "Scissors": {
+      "file": "corporate-stationery/scissors.jpg",
+      "source": "Pexels",
+      "photoId": "8250803"
+    },
+    "Paper Trimmers": {
+      "file": "corporate-stationery/paper-trimmers.jpg",
+      "source": "Pexels",
+      "photoId": "8250894"
+    },
+    "Business Cards / Visiting Cards": {
+      "file": "corporate-stationery/business-cards-visiting-cards.jpg",
+      "source": "Pexels",
+      "photoId": "5706020"
+    },
+    "Company ID Cards": {
+      "file": "corporate-stationery/company-id-cards.jpg",
+      "source": "Pexels",
+      "photoId": "7108127"
+    },
+    "ID Card Holders & Lanyards": {
+      "file": "corporate-stationery/id-card-holders-lanyards.jpg",
+      "source": "Pexels",
+      "photoId": "8761297"
+    },
+    "Branded Notebooks": {
+      "file": "corporate-stationery/branded-notebooks.jpg",
+      "source": "Pexels",
+      "photoId": "380810"
+    },
+    "Customized Pens": {
+      "file": "corporate-stationery/customized-pens.jpg",
+      "source": "Pexels",
+      "photoId": "7841506"
+    },
+    "Branded Desk Calendars": {
+      "file": "corporate-stationery/branded-desk-calendars.jpg",
+      "source": "Pexels",
+      "photoId": "29509474"
+    },
+    "Mouse Pads": {
+      "file": "corporate-stationery/mouse-pads.jpg",
+      "source": "Pexels",
+      "photoId": "27559487"
+    },
+    "Desk Organizers": {
+      "file": "corporate-stationery/desk-organizers.jpg",
+      "source": "Pexels",
+      "photoId": "31512989"
+    },
+    "Brochures": {
+      "file": "corporate-stationery/brochures.jpg",
+      "source": "Pexels",
+      "photoId": "36682054"
+    },
+    "Flyers & Leaflets": {
+      "file": "corporate-stationery/flyers-leaflets.jpg",
+      "source": "Pexels",
+      "photoId": "4249023"
+    },
+    "Company Profiles": {
+      "file": "corporate-stationery/company-profiles.jpg",
+      "source": "Pexels",
+      "photoId": "4107124"
+    },
+    "Presentation Folders": {
+      "file": "corporate-stationery/presentation-folders.jpg",
+      "source": "Pexels",
+      "photoId": "12902904"
+    },
+    "Product Catalogues": {
+      "file": "corporate-stationery/product-catalogues.jpg",
+      "source": "Pexels",
+      "photoId": "5902979"
+    },
+    "Paper Bags": {
+      "file": "corporate-stationery/paper-bags.jpg",
+      "source": "Pexels",
+      "photoId": "4440791"
+    },
+    "Certificates": {
+      "file": "corporate-stationery/certificates.jpg",
+      "source": "Pexels",
+      "photoId": "8177922"
+    },
+    "Invitation Cards": {
+      "file": "corporate-stationery/invitation-cards.jpg",
+      "source": "Pexels",
+      "photoId": "29821871"
+    },
+    "Thank You Cards": {
+      "file": "corporate-stationery/thank-you-cards.jpg",
+      "source": "Pexels",
+      "photoId": "6287933"
+    },
+    "A4 Paper Sheets": {
+      "file": "corporate-stationery/a4-paper-sheets.jpg",
+      "source": "Pexels",
+      "photoId": "8217368"
+    },
+    "A3 Paper Sheets": {
+      "file": "corporate-stationery/a3-paper-sheets.jpg",
+      "source": "Pexels",
+      "photoId": "5420985"
+    },
+    "A5 Paper Sheets": {
+      "file": "corporate-stationery/a5-paper-sheets.jpg",
+      "source": "Pexels",
+      "photoId": "9869070"
+    },
+    "A6 Paper Sheets": {
+      "file": "corporate-stationery/a6-paper-sheets.jpg",
+      "source": "Pexels",
+      "photoId": "8947495"
+    },
+    "Legal Size Paper": {
+      "file": "corporate-stationery/legal-size-paper.jpg",
+      "source": "Pexels",
+      "photoId": "7054502"
+    },
+    "Pen Stands": {
+      "file": "corporate-stationery/pen-stands.jpg",
+      "source": "Pexels",
+      "photoId": "5726032"
+    },
+    "Memo Pads": {
+      "file": "corporate-stationery/memo-pads.jpg",
+      "source": "Pexels",
+      "photoId": "6991379"
+    },
+    "Desk Calendars": {
+      "file": "corporate-stationery/desk-calendars.jpg",
+      "source": "Pexels",
+      "photoId": "29509484"
+    },
+    "Table Planners": {
+      "file": "corporate-stationery/table-planners.jpg",
+      "source": "Pexels",
+      "photoId": "29509474"
+    },
+    "Document Organizers": {
+      "file": "corporate-stationery/document-organizers.jpg",
+      "source": "Pexels",
+      "photoId": "7428214"
+    },
+    "Paper Clips & Staplers": {
+      "file": "corporate-stationery/paper-clips-staplers.jpg",
+      "source": "Pexels",
+      "photoId": "37514316"
+    },
+    "Whiteboards & Markers": {
+      "file": "corporate-stationery/whiteboards-markers.jpg",
+      "source": "Pexels",
+      "photoId": "3205476"
+    }
+  },
+  "packaging-tapes": {
+    "BOPP Packaging Tapes": {
+      "file": "packaging-tapes/bopp-packaging-tapes.jpg",
+      "source": "Pexels",
+      "photoId": "4506250"
+    },
+    "Printed Logo Tapes": {
+      "file": "packaging-tapes/printed-logo-tapes.jpg",
+      "source": "Pexels",
+      "photoId": "6956396"
+    },
+    "Transparent Tapes": {
+      "file": "packaging-tapes/transparent-tapes.jpg",
+      "source": "Pexels",
+      "photoId": "4498136"
+    },
+    "Brown Packaging Tapes": {
+      "file": "packaging-tapes/brown-packaging-tapes.jpg",
+      "source": "Pexels",
+      "photoId": "4247766"
+    },
+    "Masking Tapes": {
+      "file": "packaging-tapes/masking-tapes.jpg",
+      "source": "Pexels",
+      "photoId": "3615720"
+    },
+    "Double-Sided Tapes": {
+      "file": "packaging-tapes/double-sided-tapes.jpg",
+      "source": "Pexels",
+      "photoId": "5820268"
+    },
+    "Paper Kraft Tapes": {
+      "file": "packaging-tapes/paper-kraft-tapes.jpg",
+      "source": "Pexels",
+      "photoId": "8250874"
+    }
+  },
+  "labels-stickers": {
+    "Thermal Labels": {
+      "file": "labels-stickers/thermal-labels.jpg",
+      "source": "Pexels",
+      "photoId": "6250876"
+    },
+    "Direct Thermal Labels": {
+      "file": "labels-stickers/direct-thermal-labels.jpg",
+      "source": "Pexels",
+      "photoId": "4440874"
+    },
+    "Thermal Transfer Labels": {
+      "file": "labels-stickers/thermal-transfer-labels.jpg",
+      "source": "Pexels",
+      "photoId": "7217904"
+    },
+    "Barcode Labels": {
+      "file": "labels-stickers/barcode-labels.jpg",
+      "source": "Pexels",
+      "photoId": "4440883"
+    },
+    "Shipping Labels": {
+      "file": "labels-stickers/shipping-labels.jpg",
+      "source": "Pexels",
+      "photoId": "6348097"
+    },
+    "Product Identification Labels": {
+      "file": "labels-stickers/product-identification-labels.jpg",
+      "source": "Pexels",
+      "photoId": "17405756"
+    },
+    "QR Code Labels": {
+      "file": "labels-stickers/qr-code-labels.jpg",
+      "source": "Pexels",
+      "photoId": "7843978"
+    },
+    "Logo & Branding Stickers": {
+      "file": "labels-stickers/logo-branding-stickers.jpg",
+      "source": "Pexels",
+      "photoId": "33714876"
+    }
+  }
+}

@@ -1700,6 +1700,11 @@ footer {
   flex-wrap: wrap;
 }
 
+.footer-image-credit a {
+  color: inherit;
+  text-decoration: underline;
+}
+
 /* ==========================================
    Modal Dialog (Design & Sample Gallery)
    ========================================== */

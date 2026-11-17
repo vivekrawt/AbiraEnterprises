@@ -1,3 +1,5 @@
+import productImages from './product-images.json' with { type: 'json' };
+
 export const categories = [
   {
     id: 'corporate-stationery',
@@ -14,9 +16,9 @@ export const categories = [
         filterKeyword: 'Corporate Stationery',
         defaultImage: 16,
         products: [
-          { name: 'Letterheads', desc: 'Custom corporate letterheads for official business documentation.', image: 16 },
-          { name: 'Envelopes', desc: 'Custom-sized branded mailing and correspondence envelopes.', image: 85 },
-          { name: 'Notepads', desc: 'Spiral and gum-bound notepads for daily office note-taking.', image: 20 },
+          { name: 'Letterheads', desc: 'Custom corporate letterheads for official business documentation.', image: 88 },
+          { name: 'Envelopes', desc: 'Custom-sized branded mailing and correspondence envelopes.', image: 78 },
+          { name: 'Notepads', desc: 'Spiral and gum-bound notepads for daily office note-taking.', image: 17 },
           { name: 'Writing Pads', desc: 'Ruled and unruled executive writing pads with company header.', image: 21 },
           { name: 'Sticky Notes', desc: 'Custom printed adhesive notes for reminders and quick desk notes.', image: 22 },
           { name: 'Diaries & Planners', desc: 'Hardcover and leatherette corporate executive diaries.', image: 23 },
@@ -278,6 +280,11 @@ export const categories = [
   }
 ];
 
+export const getProductImagePath = (categoryId, productName) => {
+  const image = productImages[categoryId]?.[productName];
+  return image ? `/assets/product-photos/${image.file}` : null;
+};
+
 // Preserves backward compatibility with legacy imports
 export const collections = categories.map(cat => ({
   id: cat.id,
@@ -299,7 +306,8 @@ export const allProductItems = categories.flatMap(cat =>
     sub.products.map(prod => ({
       name: prod.name,
       desc: prod.desc,
-      image: prod.image || sub.defaultImage || cat.image,
+      image: prod.image ?? sub.defaultImage ?? cat.image,
+      imagePath: getProductImagePath(cat.id, prod.name),
       tapeType: prod.tapeType,
       labelType: prod.labelType,
       placeholderType: cat.placeholderType || sub.placeholderType,

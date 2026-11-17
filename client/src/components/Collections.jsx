@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { categories, allProductItems } from '../../../shared/collections.js';
+import { categories, allProductItems, getProductImagePath } from '../../../shared/collections.js';
 import PlaceholderThumb from './PlaceholderThumb.jsx';
 
 export const productNames = allProductItems.map(item => item.name);
@@ -68,7 +68,13 @@ export default function Collections({ onOpen, onEnquire, search = '' }) {
               {searchResults.map(prod => (
                 <article key={prod.name} className="product-card">
                   <div className="product-card-visual">
-                    {prod.placeholderType ? (
+                    {prod.imagePath ? (
+                      <img
+                        src={prod.imagePath}
+                        alt={`${prod.name} sample`}
+                        loading="lazy"
+                      />
+                    ) : prod.placeholderType ? (
                       <PlaceholderThumb
                         type={prod.placeholderType}
                         subType={prod.tapeType || prod.labelType}
@@ -322,7 +328,13 @@ export default function Collections({ onOpen, onEnquire, search = '' }) {
                     {sub.products.map(prod => (
                       <article key={prod.name} className="product-card">
                         <div className="product-card-visual">
-                          {sub.placeholderType || selectedCategory.placeholderType ? (
+                          {getProductImagePath(selectedCategory.id, prod.name) ? (
+                            <img
+                              src={getProductImagePath(selectedCategory.id, prod.name)}
+                              alt={`${prod.name} preview`}
+                              loading="lazy"
+                            />
+                          ) : sub.placeholderType || selectedCategory.placeholderType ? (
                             <PlaceholderThumb
                               type={sub.placeholderType || selectedCategory.placeholderType}
                               subType={prod.tapeType || prod.labelType}
@@ -330,7 +342,7 @@ export default function Collections({ onOpen, onEnquire, search = '' }) {
                             />
                           ) : (
                             <img
-                              src={`/assets/product-${prod.image || sub.defaultImage || selectedCategory.image}.jpg`}
+                              src={`/assets/product-${prod.image ?? sub.defaultImage ?? selectedCategory.image}.jpg`}
                               alt={`${prod.name} preview`}
                               loading="lazy"
                             />
