@@ -8,6 +8,43 @@ function getErrorMessage(error) {
   return error instanceof Error ? error.message : 'An unexpected error occurred.';
 }
 
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, character => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  })[character]);
+}
+
+function createOrderTableHtml(items) {
+  const rows = items.map((item, index) => {
+    const background = index % 2 === 0 ? '#ffffff' : '#f3f6fa';
+    return `
+      <tr style="background-color:${background};">
+        <td style="padding:10px 12px;border:1px solid #d5dee8;">${escapeHtml(item.name)}</td>
+        <td style="padding:10px 12px;border:1px solid #d5dee8;">${escapeHtml(item.categoryTitle)}</td>
+        <td style="padding:10px 12px;border:1px solid #d5dee8;">${escapeHtml(item.subcategoryName)}</td>
+        <td style="padding:10px 12px;border:1px solid #d5dee8;text-align:right;white-space:nowrap;">${item.quantity.toLocaleString()}</td>
+      </tr>`;
+  }).join('');
+
+  return `
+    <table role="table" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#18324f;">
+      <thead>
+        <tr style="background-color:#103057;color:#ffffff;">
+          <th scope="col" style="padding:10px 12px;border:1px solid #103057;text-align:left;">Product</th>
+          <th scope="col" style="padding:10px 12px;border:1px solid #103057;text-align:left;">Category</th>
+          <th scope="col" style="padding:10px 12px;border:1px solid #103057;text-align:left;">Subcategory</th>
+          <th scope="col" style="padding:10px 12px;border:1px solid #103057;text-align:right;">Quantity</th>
+        </tr>
+      </thead>
+      <tbody>${rows}
+      </tbody>
+    </table>`;
+}
+
 export default function CartDialog({
   items,
   storageNotice,
@@ -54,13 +91,12 @@ export default function CartDialog({
       email: String(formData.get('email') || '').trim(),
       phone: String(formData.get('phone') || '').trim()
     };
-    const orderTable = [
-      'PRODUCT | CATEGORY | SUBCATEGORY | QUANTITY',
-      '--------|----------|-------------|---------',
-      ...items.map(item =>
-        `${item.name} | ${item.categoryTitle} | ${item.subcategoryName} | ${item.quantity.toLocaleString()}`
-      )
-    ].join('\n');
+    const orderList = items.map((item, index) => [
+      `${index + 1}. ${item.name}`,
+      `   Category: ${item.categoryTitle}`,
+      `   Subcategory: ${item.subcategoryName}`,
+      `   Quantity: ${item.quantity.toLocaleString()}`
+    ].join('\n')).join('\n\n');
     const message = [
       'CART ORDER REQUEST — ABIRA ENTERPRISES',
       '',
@@ -69,9 +105,11 @@ export default function CartDialog({
       `Email: ${contact.email}`,
       `Phone: ${contact.phone}`,
       '',
-      'Requested products:',
-      orderTable
+      `Requested products (${items.length}):`,
+      '',
+      orderList
     ].join('\n');
+    const orderTableHtml = createOrderTableHtml(items);
 
     if (!settings.email || !emailSettings.serviceId || !emailSettings.templateId || !emailSettings.publicKey) {
       setEmailState({
@@ -96,7 +134,8 @@ export default function CartDialog({
           phone: contact.phone,
           collection: 'Cart order',
           quantity: itemCount.toLocaleString(),
-          order_table: orderTable,
+          order_table: orderList,
+          order_table_html: orderTableHtml,
           details: 'Order request submitted from the shopping cart.',
           message
         },

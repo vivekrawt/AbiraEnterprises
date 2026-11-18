@@ -20,7 +20,7 @@ Contact details and EmailJS identifiers are set in `client/public/settings.js`. 
 
 ## Shopping cart order requests
 
-Product cards across the catalogue and search results let visitors add quantities starting at 10 units. The catalogue is available from the header menu or the home-page **Explore Products** button. Search is centered in the header and submits results to the catalogue from either view. The cart is saved in `sessionStorage` for the current browser tab. It has no prices or payment checkout; visitors can submit their organization and contact details to email an itemized order list directly to the configured business email. The list is included in the email body; no cart PDF is generated or attached. The EmailJS template can display `{{message}}` or `{{order_table}}`.
+Product cards across the catalogue and search results let visitors add quantities starting at 10 units. The catalogue is available from the header menu or the home-page **Explore Products** button. Search is centered in the header and submits results to the catalogue from either view. The cart is saved in `sessionStorage` for the current browser tab. It has no prices or payment checkout; visitors can submit their organization and contact details to email an itemized order list directly to the configured business email. The `{{message}}` and `{{order_table}}` template fields contain a clearly labeled plain-text list. For a formatted HTML table, add `{{{order_table_html}}}` to the EmailJS template's HTML body. No cart PDF is generated or attached.
 
 ## Files
 

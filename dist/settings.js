@@ -2,7 +2,7 @@
 window.ABIRA_SETTINGS = {
   businessName: 'Abira Enterprises',
   whatsappNumber: '', // Example format for India: 91 followed by your 10-digit number.
-  phone: '931546684',
+  phone: '8882511472',
   email: 'info.abiraenterprises@gmail.com',
   emailjs: {
     serviceId: 'service_ojv2c2b',
