@@ -1,6 +1,6 @@
 # Abira Enterprises website
 
-This is a static React website built with Vite. It has a home page for the company overview and enquiries, plus a separate searchable product catalogue with category and subcategory listings. Cart and search state are shared between the two views.
+This is a static React website built with Vite. It has a home page for the company overview and enquiries, plus a separate searchable product catalogue with category and subcategory listings. The home page and catalogue provide a downloadable product brochure PDF with category and subcategory listings. Cart and search state are shared between the two views.
 
 ## Run locally
 

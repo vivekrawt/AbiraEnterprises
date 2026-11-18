@@ -30,6 +30,14 @@ export function ReferenceHero({ onExploreProducts, onContact }) {
           >
             Request a Quote <span>↗</span>
           </a>
+          <a
+            className="reference-button secondary"
+            href="/abira-enterprises-product-brochure.pdf"
+            download="Abira-Enterprises-Product-Brochure.pdf"
+            aria-label="Download product categories and subcategories as a PDF"
+          >
+            Download Categories &amp; Subcategories (PDF) <span aria-hidden="true">↓</span>
+          </a>
         </div>
       </div>
       <div className="reference-hero-visual-showcase" aria-label="Visual showcase of packaging, printing, corporate gifting, and business essentials">

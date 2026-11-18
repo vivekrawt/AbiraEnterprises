@@ -121,7 +121,6 @@ export default function Header({
           <span>
             <b>Abira</b> Enterprises
           </span>
-          <small>PACKAGING &nbsp;|&nbsp; PRINTING &nbsp;|&nbsp; CORPORATE GIFTING &nbsp;|&nbsp; BUSINESS ESSENTIALS</small>
         </a>
 
         <nav

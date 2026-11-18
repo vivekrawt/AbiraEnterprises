@@ -165,21 +165,8 @@ export function Footer({ onNavigate }) {
           }}
           aria-label="Abira Enterprises Home"
         >
-          <svg viewBox="0 0 36 40" fill="none" aria-hidden="true">
-            <path
-              d="M18 2 34 11v18L18 38 2 29V11L18 2Z M2 11l16 10 16-10M18 21v17M10 6l16 10v10"
-              stroke="currentColor"
-              strokeWidth="1.7"
-            />
-          </svg>
-          <span>
-            abira<span className="brand-sub">ENTERPRISES</span>
-          </span>
+          <img src="/assets/abira-enterprises-logo.png" alt="" />
         </a>
-        <p>
-          Thoughtful details.<br />
-          Lasting impressions.
-        </p>
         <div>
           <a
             href="/?page=products"
@@ -214,16 +201,6 @@ export function Footer({ onNavigate }) {
           {phone && <a href={`tel:${phone.replace(/[^+\d]/g, '')}`}>{phone}</a>}
           {email && <a href={`mailto:${email}`}>{email}</a>}
         </div>
-        <a
-          href="/?page=home#hero"
-          className="back-top"
-          onClick={event => {
-            event.preventDefault();
-            onNavigate('home', 'hero');
-          }}
-        >
-          Back to top ↑
-        </a>
       </div>
       <div className="footer-bottom">
         <span>© {new Date().getFullYear()} Abira Enterprises. All rights reserved.</span>

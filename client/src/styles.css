@@ -137,7 +137,7 @@ svg {
   min-height: 116px;
   padding: 0 5%;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(300px, 460px) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.15fr) minmax(300px, 460px) minmax(0, 0.85fr);
   grid-template-areas:
     "brand search tools"
     "nav nav nav";
@@ -167,14 +167,6 @@ svg {
 
 .reference-brand b {
   font-weight: 800;
-}
-
-.reference-brand small {
-  font-size: 8px;
-  letter-spacing: 1.5px;
-  margin-top: 6px;
-  font-weight: 700;
-  color: var(--muted);
 }
 
 .reference-header nav {
@@ -1964,35 +1956,32 @@ textarea {
    Footer
    ========================================== */
 footer {
-  background: var(--navy-dark);
+  background: #181a1b;
   color: #ffffff;
   padding: 64px 5% 24px;
 }
 
 .footer-top {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
   align-items: flex-start;
-  gap: 36px;
+  column-gap: clamp(32px, 4vw, 56px);
+  row-gap: 24px;
   padding-bottom: 44px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .footer-brand {
   display: flex;
-  gap: 12px;
   align-items: center;
   color: #ffffff;
 }
 
-.footer-brand svg {
-  width: 32px;
-  height: 36px;
-}
-
-.footer-brand > span {
-  font-size: 32px;
-  font-weight: 700;
+.footer-brand img {
+  display: block;
+  width: 320px;
+  max-width: 100%;
+  height: auto;
 }
 
 .footer-top > p {
@@ -2019,11 +2008,6 @@ footer {
   display: block;
   margin-bottom: 8px;
   font-size: 13px;
-}
-
-.back-top {
-  font-size: 12px;
-  color: #b7c7dc;
 }
 
 .footer-bottom {
@@ -2556,11 +2540,6 @@ dialog::backdrop {
     font-size: 24px;
   }
 
-  .reference-brand small {
-    font-size: 6px;
-    letter-spacing: 1px;
-  }
-
   .header-tools {
     grid-area: tools;
   }
@@ -2797,6 +2776,7 @@ dialog::backdrop {
   }
 
   .footer-top {
+    display: flex;
     flex-direction: column;
   }
 
@@ -2896,21 +2876,6 @@ dialog::backdrop {
 
   .reference-brand > span {
     font-size: clamp(17px, 5vw, 21px);
-  }
-
-  .reference-brand small {
-    display: none;
-  }
-
-  .footer-brand > span {
-    font-size: 25px;
-  }
-
-  .footer-brand .brand-sub {
-    display: block;
-    margin-top: 2px;
-    font-size: 8px;
-    letter-spacing: 1.6px;
   }
 
   .hero-montage {
