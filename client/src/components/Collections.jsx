@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { categories, allProductItems, getProductImagePath } from '../../../shared/collections.js';
 import PlaceholderThumb from './PlaceholderThumb.jsx';
+import ProductPurchase from './ProductPurchase.jsx';
 
 export const productNames = allProductItems.map(item => item.name);
 
@@ -45,7 +46,7 @@ function CategoryProductPreview({ category }) {
   );
 }
 
-export default function Collections({ onOpen, onEnquire, search = '' }) {
+export default function Collections({ onOpen, onEnquire, onAddToCart, search = '' }) {
   // viewMode: 'overview' (6 category brochure cards) or 'category' (in-depth category view)
   const [selectedCategoryId, setSelectedCategoryId] = useState('packaging-solutions');
   const [viewMode, setViewMode] = useState('overview');
@@ -134,24 +135,7 @@ export default function Collections({ onOpen, onEnquire, search = '' }) {
                     <h4>{prod.name}</h4>
                     <p className="product-sub-info">{prod.subcategoryName}</p>
                     <p className="product-desc">{prod.desc}</p>
-                    <div className="product-card-actions">
-                      <button
-                        type="button"
-                        className="btn-card-design"
-                        onClick={() => onOpen({ id: prod.categoryId, product: prod.name })}
-                        aria-label={`View sample designs for ${prod.name}`}
-                      >
-                        Designs
-                      </button>
-                      <button
-                        type="button"
-                        className="btn-card-enquire"
-                        onClick={() => onEnquire(prod.name)}
-                        aria-label={`Enquire about ${prod.name}`}
-                      >
-                        Enquire ↗
-                      </button>
-                    </div>
+                    <ProductPurchase product={prod} onAddToCart={onAddToCart} />
                   </div>
                 </article>
               ))}
@@ -196,14 +180,27 @@ export default function Collections({ onOpen, onEnquire, search = '' }) {
               );
               return (
                 <div key={cat.id} className="category-brochure-card">
-                  <div className="cat-card-media">
+                  <button
+                    type="button"
+                    className="cat-card-media"
+                    onClick={() => handleOpenCategory(cat.id)}
+                    aria-label={`Open ${cat.title} catalogue`}
+                  >
                     <CategoryProductPreview category={cat} />
                     <span className="cat-index-badge">0{idx + 1}</span>
                     <span className="cat-count-badge">{totalItems} Products</span>
-                  </div>
+                  </button>
 
                   <div className="cat-card-body">
-                    <h3>{cat.title}</h3>
+                    <h3>
+                      <button
+                        type="button"
+                        className="cat-card-title"
+                        onClick={() => handleOpenCategory(cat.id)}
+                      >
+                        {cat.title}
+                      </button>
+                    </h3>
                     <p className="cat-card-subtitle">{cat.subtitle}</p>
 
                     <div className="cat-sub-pills">
@@ -372,30 +369,15 @@ export default function Collections({ onOpen, onEnquire, search = '' }) {
                           <h4 className="product-name">{prod.name}</h4>
                           <p className="product-desc">{prod.desc}</p>
 
-                          <div className="product-card-actions">
-                            <button
-                              type="button"
-                              className="btn-card-design"
-                              onClick={() =>
-                                onOpen({
-                                  id: selectedCategory.id,
-                                  type: sub.name,
-                                  product: prod.name
-                                })
-                              }
-                              aria-label={`View sample designs for ${prod.name}`}
-                            >
-                              Designs
-                            </button>
-                            <button
-                              type="button"
-                              className="btn-card-enquire"
-                              onClick={() => onEnquire(prod.name)}
-                              aria-label={`Enquire about ${prod.name}`}
-                            >
-                              Enquire ↗
-                            </button>
-                          </div>
+                          <ProductPurchase
+                            product={{
+                              name: prod.name,
+                              categoryId: selectedCategory.id,
+                              categoryTitle: selectedCategory.title,
+                              subcategoryName: sub.name
+                            }}
+                            onAddToCart={onAddToCart}
+                          />
                         </div>
                       </article>
                     ))}

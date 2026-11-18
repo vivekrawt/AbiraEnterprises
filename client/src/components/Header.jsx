@@ -1,5 +1,13 @@
 import { useState } from 'react';
-import { productNames } from './Collections.jsx';
+import { allProductItems, categories } from '../../../shared/collections.js';
+
+const searchableNames = [...new Set([
+  ...allProductItems.map(item => item.name),
+  ...categories.flatMap(category => [
+    category.title,
+    ...category.subcategories.map(subcategory => subcategory.name)
+  ])
+])];
 
 function distance(a, b) {
   const row = Array.from({ length: b.length + 1 }, (_, index) => index);
@@ -23,13 +31,13 @@ function suggestionsFor(value) {
   const query = value.trim().toLowerCase();
   if (!query) return [];
   if (query.length === 1) {
-    return productNames
+    return searchableNames
       .filter(name => name.toLowerCase().startsWith(query))
       .sort((a, b) => a.localeCompare(b))
       .slice(0, 8)
       .map(name => ({ name, score: 0 }));
   }
-  return productNames
+  return searchableNames
     .map(name => {
       const words = name.toLowerCase().split(/\s+/);
       const score = words.some(word => word.startsWith(query))
@@ -47,31 +55,42 @@ function suggestionsFor(value) {
     .slice(0, 8);
 }
 
-export default function Header({ search, onSearch }) {
-  const [open, setOpen] = useState(false);
-  const [showSearch, setShowSearch] = useState(false);
+export default function Header({
+  page,
+  search,
+  onSearch,
+  onSearchSubmit,
+  onNavigate,
+  cartCount,
+  onOpenCart
+}) {
+  const [menuOpen, setMenuOpen] = useState(false);
   const [activeSuggestion, setActiveSuggestion] = useState(-1);
+  const [searchActive, setSearchActive] = useState(false);
 
-  const suggestions = suggestionsFor(search);
+  const suggestions = menuOpen || !searchActive ? [] : suggestionsFor(search);
 
-  const toggleSearch = () => {
-    setShowSearch(!showSearch);
+  const handleNavigate = (event, nextPage, section = '') => {
+    event.preventDefault();
+    setMenuOpen(false);
+    setSearchActive(false);
     setActiveSuggestion(-1);
-    if (showSearch) onSearch('');
+    onNavigate(nextPage, section);
   };
 
   const chooseSuggestion = name => {
     onSearch(name);
-    setShowSearch(false);
+    setMenuOpen(false);
+    setSearchActive(false);
     setActiveSuggestion(-1);
-    document.querySelector('#collections')?.scrollIntoView({ behavior: 'smooth' });
+    onSearchSubmit(name);
   };
 
   const handleSearchKey = event => {
     if (event.key === 'Escape') {
-      setShowSearch(false);
       setActiveSuggestion(-1);
-      onSearch('');
+      setSearchActive(false);
+      event.currentTarget.blur();
     }
     if (event.key === 'ArrowDown' && suggestions.length) {
       event.preventDefault();
@@ -81,9 +100,9 @@ export default function Header({ search, onSearch }) {
       event.preventDefault();
       setActiveSuggestion(index => (index + suggestions.length - 1) % suggestions.length);
     }
-    if (event.key === 'Enter' && suggestions.length) {
+    if (event.key === 'Enter' && activeSuggestion >= 0 && suggestions.length) {
       event.preventDefault();
-      chooseSuggestion(suggestions[activeSuggestion < 0 ? 0 : activeSuggestion].name);
+      chooseSuggestion(suggestions[activeSuggestion].name);
     }
   };
 
@@ -93,7 +112,12 @@ export default function Header({ search, onSearch }) {
         Skip to main content
       </a>
       <header className="reference-header">
-        <a className="reference-brand" href="#hero" aria-label="Abira Enterprises Home">
+        <a
+          className="reference-brand"
+          href="/?page=home#hero"
+          onClick={event => handleNavigate(event, 'home', 'hero')}
+          aria-label="Abira Enterprises Home"
+        >
           <span>
             <b>Abira</b> Enterprises
           </span>
@@ -101,86 +125,139 @@ export default function Header({ search, onSearch }) {
         </a>
 
         <nav
-          className={open ? 'open' : ''}
+          className={menuOpen ? 'open' : ''}
           aria-label="Main navigation"
-          onClick={() => setOpen(false)}
         >
-          <a className="current" href="#hero">Home</a>
-          <a href="#approach">About Us</a>
-          <a href="#collections">Products &amp; Catalogue</a>
-          <a href="#why-choose-us">Why Choose Us</a>
-          <a href="#enquiry">Contact Us</a>
+          <a
+            className={page === 'home' ? 'current' : ''}
+            href="/?page=home#hero"
+            onClick={event => handleNavigate(event, 'home', 'hero')}
+          >
+            Home
+          </a>
+          <a
+            href="/?page=home#approach"
+            onClick={event => handleNavigate(event, 'home', 'approach')}
+          >
+            About Us
+          </a>
+          <a
+            className={page === 'products' ? 'current' : ''}
+            href="/?page=products"
+            onClick={event => handleNavigate(event, 'products')}
+          >
+            Products &amp; Catalogue
+          </a>
+          <a
+            href="/?page=home#why-choose-us"
+            onClick={event => handleNavigate(event, 'home', 'why-choose-us')}
+          >
+            Why Choose Us
+          </a>
+          <a
+            href="/?page=home#enquiry"
+            onClick={event => handleNavigate(event, 'home', 'enquiry')}
+          >
+            Contact Us
+          </a>
         </nav>
 
-        <div className="header-tools">
-          <button
-            aria-label={showSearch ? 'Close product search' : 'Search products'}
-            aria-expanded={showSearch}
-            onClick={toggleSearch}
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <form
+          className="header-search"
+          role="search"
+          onSubmit={event => {
+            event.preventDefault();
+            onSearchSubmit(search);
+            setMenuOpen(false);
+            setSearchActive(false);
+            setActiveSuggestion(-1);
+          }}
+        >
+          <label className="visually-hidden" htmlFor="site-product-search">
+            Search products and categories
+          </label>
+          <input
+            id="site-product-search"
+            type="search"
+            role="combobox"
+            aria-autocomplete="list"
+            aria-expanded={suggestions.length > 0}
+            aria-controls="product-suggestions"
+            aria-activedescendant={
+              activeSuggestion >= 0 ? `suggestion-${activeSuggestion}` : undefined
+            }
+            value={search}
+            onFocus={() => setSearchActive(true)}
+            onBlur={() => {
+              window.setTimeout(() => setSearchActive(false), 150);
+            }}
+            onChange={event => {
+              setSearchActive(true);
+              onSearch(event.target.value);
+              setActiveSuggestion(-1);
+            }}
+            onKeyDown={handleSearchKey}
+            placeholder="Search products and categories"
+          />
+          <button type="submit" aria-label="View product search results">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
               <circle cx="10.7" cy="10.7" r="7.3" />
               <path d="m16 16 5.5 5.5" />
             </svg>
           </button>
+          {suggestions.length > 0 && (
+            <div
+              className="search-suggestions"
+              id="product-suggestions"
+              role="listbox"
+              aria-label="Product suggestions"
+            >
+              {suggestions.map((item, index) => (
+                <button
+                  type="button"
+                  key={item.name}
+                  id={`suggestion-${index}`}
+                  role="option"
+                  aria-selected={activeSuggestion === index}
+                  onMouseDown={event => event.preventDefault()}
+                  onClick={() => chooseSuggestion(item.name)}
+                >
+                  <span>{item.name}</span>
+                  <span aria-hidden="true">↗</span>
+                </button>
+              ))}
+            </div>
+          )}
+        </form>
+
+        <div className="header-tools">
+          <button
+            type="button"
+            className="header-cart"
+            onClick={onOpenCart}
+            aria-label={`Open shopping cart with ${cartCount} item${cartCount === 1 ? '' : 's'}`}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+              <path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h8.4a2 2 0 0 0 2-1.6L21 8H6" />
+              <circle cx="10" cy="20" r="1" />
+              <circle cx="18" cy="20" r="1" />
+            </svg>
+            <span>Cart</span>
+            <b>{cartCount}</b>
+          </button>
           <button
             className="menu-toggle"
-            onClick={() => setOpen(!open)}
-            aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
-            aria-expanded={open}
+            onClick={() => {
+              setMenuOpen(!menuOpen);
+              setSearchActive(false);
+              setActiveSuggestion(-1);
+            }}
+            aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={menuOpen}
           >
             ☰
           </button>
         </div>
-
-        {showSearch && (
-          <div className="header-search">
-            <label>
-              Search 70+ products &amp; categories
-              <input
-                autoFocus
-                role="combobox"
-                aria-autocomplete="list"
-                aria-expanded={suggestions.length > 0}
-                aria-controls="product-suggestions"
-                aria-activedescendant={
-                  activeSuggestion >= 0 ? `suggestion-${activeSuggestion}` : undefined
-                }
-                value={search}
-                onChange={e => {
-                  onSearch(e.target.value);
-                  setActiveSuggestion(-1);
-                }}
-                onKeyDown={handleSearchKey}
-                placeholder="Search mailers, rigid boxes, tapes, labels, diaries…"
-              />
-            </label>
-            <a href="#collections" onClick={() => setShowSearch(false)}>
-              View Results ↗
-            </a>
-            {suggestions.length > 0 && (
-              <div
-                className="search-suggestions"
-                id="product-suggestions"
-                role="listbox"
-                aria-label="Product suggestions"
-              >
-                {suggestions.map((item, index) => (
-                  <button
-                    key={item.name}
-                    id={`suggestion-${index}`}
-                    role="option"
-                    aria-selected={activeSuggestion === index}
-                    onClick={() => chooseSuggestion(item.name)}
-                  >
-                    <span>{item.name}</span>
-                    <span aria-hidden="true">↗</span>
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
       </header>
     </>
   );

@@ -1,26 +1,30 @@
 import { useRef, useState } from 'react';
-import { categories } from '../../../shared/collections.js';
+import emailjs from '@emailjs/browser';
 
 const settings = window.ABIRA_SETTINGS || {};
+const emailSettings = settings.emailjs || {};
 
 function makeBrief(data) {
-  return `CORPORATE ENQUIRY BRIEF — ABIRA ENTERPRISES\n\nName: ${data.name}\nBusiness / Organization: ${data.business || 'Not specified'}\nEmail: ${data.email}\nPhone: ${data.phone || 'Not specified'}\nCategory / Product of Interest: ${data.collection}\nEstimated Quantity: ${data.quantity ? data.quantity.toLocaleString() : 'To discuss'}\n\nProject Requirements & Specifications:\n${data.details || 'To discuss'}\n`;
+  return `CORPORATE ENQUIRY BRIEF — ABIRA ENTERPRISES\n\nName: ${data.name}\nBusiness / Organization: ${data.business || 'Not specified'}\nEmail: ${data.email}\nPhone: ${data.phone || 'Not specified'}\n\nProject Requirements & Specifications:\n${data.details || 'To discuss'}\n`;
+}
+
+function getErrorMessage(error) {
+  return error instanceof Error ? error.message : 'An unexpected error occurred.';
 }
 
 export default function EnquiryForm({
-  collection,
   details = '',
-  onCollectionChange,
   onDetailsChange
 }) {
   const [state, setState] = useState('idle');
   const [brief, setBrief] = useState('');
   const [copyMessage, setCopyMessage] = useState('');
+  const [sendError, setSendError] = useState('');
   const formRef = useRef(null);
 
   const whatsapp = (settings.whatsappNumber || '').replace(/\D/g, '');
 
-  function submit(event) {
+  async function submit(event) {
     event.preventDefault();
     const fields = Object.fromEntries(new FormData(event.currentTarget));
     const payload = {
@@ -28,13 +32,42 @@ export default function EnquiryForm({
       business: fields.business.trim(),
       email: fields.email.trim(),
       phone: fields.phone.trim(),
-      collection: fields.collection,
-      quantity: fields.quantity ? Number(fields.quantity) : null,
       details: fields.details.trim()
     };
-    setBrief(makeBrief(payload));
+    const enquiryBrief = makeBrief(payload);
+    setBrief(enquiryBrief);
     setCopyMessage('');
-    setState('sent');
+    setSendError('');
+
+    if (!settings.email || !emailSettings.serviceId || !emailSettings.templateId || !emailSettings.publicKey) {
+      setState('error');
+      setSendError('Email delivery is not configured. Please contact Abira Enterprises using the details shown on this page.');
+      return;
+    }
+
+    setState('sending');
+    try {
+      await emailjs.send(
+        emailSettings.serviceId,
+        emailSettings.templateId,
+        {
+          to_email: settings.email,
+          name: payload.name,
+          business: payload.business || 'Not specified',
+          email: payload.email,
+          reply_to: payload.email,
+          phone: payload.phone || 'Not specified',
+          details: payload.details || 'To discuss',
+          message: enquiryBrief
+        },
+        { publicKey: emailSettings.publicKey }
+      );
+      setState('sent');
+    } catch (error) {
+      console.error('EmailJS enquiry delivery failed:', error);
+      setState('error');
+      setSendError(`Your enquiry brief is ready, but it could not be emailed: ${getErrorMessage(error)}`);
+    }
   }
 
   function download() {
@@ -130,37 +163,6 @@ export default function EnquiryForm({
             </label>
           </div>
 
-          <div className="form-row">
-            <label>
-              Primary category of interest
-              <select
-                name="collection"
-                required
-                value={collection}
-                onChange={e => onCollectionChange(e.target.value)}
-              >
-                <option value="">Select a category</option>
-                {categories.map(c => (
-                  <option key={c.id} value={c.title}>
-                    {c.title}
-                  </option>
-                ))}
-                <option value="A combination of products">A combination of multiple categories</option>
-              </select>
-            </label>
-            <label>
-              Estimated quantity
-              <input
-                name="quantity"
-                type="number"
-                min={1}
-                max={100000000}
-                step={1}
-                placeholder="e.g. 500 or 1000"
-              />
-            </label>
-          </div>
-
           <label>
             Project specifications &amp; requirements
             <textarea
@@ -173,19 +175,25 @@ export default function EnquiryForm({
             />
           </label>
 
-          <button className="button dark submit-enquiry" type="submit">
-            Generate My Custom Brief <span>↗</span>
+          <button className="button dark submit-enquiry" type="submit" disabled={state === 'sending'}>
+            {state === 'sending' ? 'Sending Enquiry…' : 'Send Enquiry & Generate Brief'}
+            {state !== 'sending' && <span>↗</span>}
           </button>
         </fieldset>
 
         <p className="form-note">
-          Fill in your details to create an instant enquiry brief. No information is transmitted to third parties without your review.
+          Your enquiry will be emailed directly to Abira Enterprises. You can also copy or download the brief below.
         </p>
 
-        {state === 'sent' && (
+        {brief && (
           <div className="brief-result" role="region" aria-label="Generated brief summary">
-            <h4>Your enquiry brief is ready.</h4>
-            <p>You can copy or download this summary to share directly with Abira Enterprises.</p>
+            <h4>{state === 'sent' ? 'Your enquiry was sent.' : 'Your enquiry brief is ready.'}</h4>
+            <p>
+              {state === 'sent'
+                ? 'Abira Enterprises received your enquiry. Keep a copy of the brief below for your records.'
+                : 'You can copy or download this brief. It will be sent when email delivery succeeds.'}
+            </p>
+            {sendError && <p className="email-error" role="alert">{sendError}</p>}
             <pre>{brief}</pre>
             <div className="result-actions">
               <button

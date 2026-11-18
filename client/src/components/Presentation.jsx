@@ -35,37 +35,6 @@ export function Approach() {
   );
 }
 
-export function Process() {
-  return (
-    <section className="process section" id="process" aria-label="Our working process">
-      <div className="section-top">
-        <div>
-          <p className="eyebrow">FROM BRIEF TO DELIVERY</p>
-          <h2>How We <em>Work Together.</em></h2>
-        </div>
-        <p>A dependable, streamlined process for all your corporate packaging and gifting needs.</p>
-      </div>
-      <div className="steps">
-        <article>
-          <span className="step-number">01</span>
-          <h3>Explore the catalogue</h3>
-          <p>Browse our solutions across packaging, corporate gifting, safety wraps, confetti, tapes, and labels.</p>
-        </article>
-        <article>
-          <span className="step-number">02</span>
-          <h3>Share your specifications</h3>
-          <p>Tell us your preferred dimensions, order quantities, branding requirements, and target delivery dates.</p>
-        </article>
-        <article>
-          <span className="step-number">03</span>
-          <h3>Sample, finalize &amp; produce</h3>
-          <p>Review material options and custom specifications with our team before your order goes into production.</p>
-        </article>
-      </div>
-    </section>
-  );
-}
-
 export function FAQ() {
   return (
     <section className="faq section" id="faq" aria-label="Frequently Asked Questions">
@@ -110,7 +79,7 @@ export function FAQ() {
   );
 }
 
-export function Inspiration({ onOpen }) {
+export function Inspiration({ onOpen, onBrowseCatalogue }) {
   return (
     <section className="inspiration section" aria-label="Curated inspiration">
       <div className="section-top">
@@ -118,7 +87,16 @@ export function Inspiration({ onOpen }) {
           <p className="eyebrow">CURATED SOLUTIONS</p>
           <h2>Designed for Every<br /><em>Brand Touchpoint.</em></h2>
         </div>
-        <a className="text-link" href="#collections">Browse complete catalogue <span>↗</span></a>
+        <a
+          className="text-link"
+          href="/?page=products"
+          onClick={event => {
+            event.preventDefault();
+            onBrowseCatalogue();
+          }}
+        >
+          Browse complete catalogue <span>↗</span>
+        </a>
       </div>
       <div className="inspiration-grid">
         <button
@@ -171,11 +149,22 @@ export function Inspiration({ onOpen }) {
   );
 }
 
-export function Footer() {
+export function Footer({ onNavigate }) {
+  const phone = window.ABIRA_SETTINGS?.phone;
+  const email = window.ABIRA_SETTINGS?.email;
+
   return (
     <footer>
       <div className="footer-top">
-        <a className="brand footer-brand" href="#hero" aria-label="Abira Enterprises Home">
+        <a
+          className="brand footer-brand"
+          href="/?page=home#hero"
+          onClick={event => {
+            event.preventDefault();
+            onNavigate('home', 'hero');
+          }}
+          aria-label="Abira Enterprises Home"
+        >
           <svg viewBox="0 0 36 40" fill="none" aria-hidden="true">
             <path
               d="M18 2 34 11v18L18 38 2 29V11L18 2Z M2 11l16 10 16-10M18 21v17M10 6l16 10v10"
@@ -192,12 +181,49 @@ export function Footer() {
           Lasting impressions.
         </p>
         <div>
-          <a href="#collections">Explore Catalogue ↗</a>
-          <a href="#approach">About Abira ↗</a>
-          <a href="#process">How We Work ↗</a>
-          <a href="#enquiry">Request a Quote ↗</a>
+          <a
+            href="/?page=products"
+            onClick={event => {
+              event.preventDefault();
+              onNavigate('products');
+            }}
+          >
+            Explore Catalogue ↗
+          </a>
+          <a
+            href="/?page=home#approach"
+            onClick={event => {
+              event.preventDefault();
+              onNavigate('home', 'approach');
+            }}
+          >
+            About Abira ↗
+          </a>
+          <a
+            href="/?page=home#enquiry"
+            onClick={event => {
+              event.preventDefault();
+              onNavigate('home', 'enquiry');
+            }}
+          >
+            Request a Quote ↗
+          </a>
         </div>
-        <a href="#hero" className="back-top">Back to top ↑</a>
+        <div className="footer-contact">
+          <strong>Contact</strong>
+          {phone && <a href={`tel:${phone.replace(/[^+\d]/g, '')}`}>{phone}</a>}
+          {email && <a href={`mailto:${email}`}>{email}</a>}
+        </div>
+        <a
+          href="/?page=home#hero"
+          className="back-top"
+          onClick={event => {
+            event.preventDefault();
+            onNavigate('home', 'hero');
+          }}
+        >
+          Back to top ↑
+        </a>
       </div>
       <div className="footer-bottom">
         <span>© {new Date().getFullYear()} Abira Enterprises. All rights reserved.</span>

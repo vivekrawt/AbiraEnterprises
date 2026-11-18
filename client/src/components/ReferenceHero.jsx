@@ -1,4 +1,4 @@
-export function ReferenceHero() {
+export function ReferenceHero({ onExploreProducts, onContact }) {
   return (
     <section className="reference-hero" id="hero">
       <div className="reference-hero-copy">
@@ -10,10 +10,24 @@ export function ReferenceHero() {
           From corporate events to everyday business needs, we deliver premium packaging, printing, and gifting solutions that elevate your brand. Quality you can trust. Customization that inspires. Service you can rely on.
         </p>
         <div className="hero-actions">
-          <a className="reference-button" href="#collections">
+          <a
+            className="reference-button"
+            href="/?page=products"
+            onClick={event => {
+              event.preventDefault();
+              onExploreProducts();
+            }}
+          >
             Explore Products <span>→</span>
           </a>
-          <a className="reference-button secondary" href="#enquiry">
+          <a
+            className="reference-button secondary"
+            href="/?page=home#enquiry"
+            onClick={event => {
+              event.preventDefault();
+              onContact();
+            }}
+          >
             Request a Quote <span>↗</span>
           </a>
         </div>
@@ -59,6 +73,34 @@ export function Benefits() {
           <span>{a}<br />{b}</span>
         </div>
       ))}
+    </section>
+  );
+}
+
+const orderingSteps = [
+  ['01', 'Explore products', 'Browse the catalogue and choose the products you need.'],
+  ['02', 'Set quantities', 'Add each product to your cart, starting from 10 units.'],
+  ['03', 'Review your cart', 'Check the products and update quantities to suit your needs.'],
+  ['04', 'Send your request', 'Share your contact details and email your order list to us.']
+];
+
+export function OrderingSteps() {
+  return (
+    <section className="ordering-steps" aria-label="How to place an order">
+      <div className="ordering-steps-heading">
+        <p className="eyebrow">A SIMPLE ORDERING PROCESS</p>
+        <h2>From catalogue to <em>order request.</em></h2>
+        <p>Four simple steps to share the products and quantities you need.</p>
+      </div>
+      <ol className="ordering-steps-list">
+        {orderingSteps.map(([number, title, description], index) => (
+          <li key={number} style={{ '--step-index': index }}>
+            <span className="ordering-step-number">{number}</span>
+            <h3>{title}</h3>
+            <p>{description}</p>
+          </li>
+        ))}
+      </ol>
     </section>
   );
 }

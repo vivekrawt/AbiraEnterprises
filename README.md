@@ -1,6 +1,6 @@
 # Abira Enterprises website
 
-This is a static React website built with Vite. It follows the supplied homepage reference: a white and navy header, a wide packaging hero, a benefits row and a ten-item product grid. The product images and galleries come from the supplied packaging folders.
+This is a static React website built with Vite. It has a home page for the company overview and enquiries, plus a separate searchable product catalogue with category and subcategory listings. Cart and search state are shared between the two views.
 
 ## Run locally
 
@@ -16,7 +16,11 @@ Open http://127.0.0.1:5173. Press Ctrl+C to stop. To create the deployable site,
 
 ## Contact information and packaging briefs
 
-Edit `client/public/settings.js` to add your phone number, email address, city and WhatsApp number. The WhatsApp number must include the country code and use digits only. Blank entries stay hidden. The form generates a brief in the visitor’s browser and offers copy, download, and a WhatsApp link once you add a number. No visitor details are saved or sent automatically.
+Contact details and EmailJS identifiers are set in `client/public/settings.js`. The general enquiry form sends a visitor's contact details and requirements to the configured business email through EmailJS and shows a copyable/downloadable brief. Set the EmailJS template recipient to `{{to_email}}`; template fields can use `{{name}}`, `{{business}}`, `{{email}}`, `{{reply_to}}`, `{{phone}}`, `{{details}}`, and/or `{{message}}`. The form sends only after the visitor submits; enquiry details are not stored by the website.
+
+## Shopping cart order requests
+
+Product cards across the catalogue and search results let visitors add quantities starting at 10 units. The catalogue is available from the header menu or the home-page **Explore Products** button. Search is centered in the header and submits results to the catalogue from either view. The cart is saved in `sessionStorage` for the current browser tab. It has no prices or payment checkout; visitors can submit their organization and contact details to email an itemized order list directly to the configured business email. The list is included in the email body; no cart PDF is generated or attached. The EmailJS template can display `{{message}}` or `{{order_table}}`.
 
 ## Files
 
@@ -25,6 +29,7 @@ Edit `client/public/settings.js` to add your phone number, email address, city a
 - `client/src/data/catalogue.json` — product image catalogue
 - `client/public/assets/` — product imagery and the supplied homepage reference used in the hero
 - `client/public/settings.js` — public business contact details
+- `client/src/components/CartDialog.jsx` — session cart and email order requests
 - `shared/collections.js` — descriptions for the six collections
 
 The image named `reference-homepage.png` is the user-provided visual reference. The hero displays its right-side packaging scene; the text, navigation and product cards are real page elements.
